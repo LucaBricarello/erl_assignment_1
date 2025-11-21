@@ -85,8 +85,6 @@ class AssignmentNode(Node):
         if self.latest_image is None:
             return # Aspettiamo la prima immagine
 
-        self.get_logger().info("CONTROL LOOP ESEGUITO")
-
         # First state: rotate and search markers
         if self.mission_phase == "SEARCH":
             self.phase_search_markers()
@@ -98,6 +96,12 @@ class AssignmentNode(Node):
         # Third state: return to origin
         elif self.mission_phase == "TO_ORIGIN":
             self.phase_back_to_origin()
+
+        # Third state: return to origin
+        elif self.mission_phase == "DONE":
+            self.get_logger().info("Missione completata! Tutti i marker visitati.", throttle_duration_sec=5)
+            # terminate the ros node
+            rclpy.shutdown()
             
         # Stop state
         else:
@@ -136,16 +140,22 @@ class AssignmentNode(Node):
             twist = Twist()
             twist.linear.x = 0.0
             # tune this angular speed if needed
-            twist.angular.z = 0.5
+            twist.angular.z = 0.6
             self.publisher_vel.publish(twist)
         else:
             self.stop_robot()
+
+            # sorting the list in order
+            self.marker_list.sort()
+            self.get_logger().info("5 markers found! Proceeding to VISIT phase. the list is " + str(self.marker_list), throttle_duration_sec=2)
+
             self.mission_phase = "VISIT"
 
     def phase_visit_markers(self):
         """
         Logica per raggiungere i marker in ordine.
         """
+
         if self.current_target_index >= len(self.marker_list):
             self.mission_phase = "DONE"
             return
@@ -160,7 +170,7 @@ class AssignmentNode(Node):
         # --- RILEVAMENTO MARKER ---
         # Necessario definire dizionario e parametri (meglio se in __init__, ma li metto qui per chiarezza)
         aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_ARUCO_ORIGINAL)
-        parameters = cv2.aruco.DetectorParameters()
+        parameters = cv2.aruco.DetectorParameters_create()
         
         # detectMarkers ritorna i corners [cite: 22]
         corners, ids, _ = cv2.aruco.detectMarkers(self.latest_image, aruco_dict, parameters=parameters)
@@ -180,12 +190,12 @@ class AssignmentNode(Node):
 
             msg = Twist()
 
-            msg.linear.x = 0
-            msg.linear.y = 0
-            msg.linear.z = 0
-            msg.angular.x = 0
-            msg.angular.y = 0
-            msg.angular.z = 0.3
+            msg.linear.x = 0.0
+            msg.linear.y = 0.0
+            msg.linear.z = 0.0
+            msg.angular.x = 0.0
+            msg.angular.y = 0.0
+            msg.angular.z = 0.6
 
             self.publisher_vel.publish(msg)
         
@@ -203,27 +213,29 @@ class AssignmentNode(Node):
 
             # computing marker_perceived_width as difference between corner 0 (high left corner) and corner 1 (high right corner) then doing norm
             marker_perceived_width = np.linalg.norm(target_corners[0] - target_corners[1])
+            self.get_logger().info(f"marker_perceived_width: {marker_perceived_width}.")
 
             is_alligned = False
             is_close = False
 
-            if abs(error_x) < 0.01:
+            if abs(error_x) < 0.03:
                 is_alligned = True
 
-            if abs(marker_perceived_width) > 0.3:
+            # marker_perceived_width is in pixels, so we set a threshold in pixels too
+            if abs(marker_perceived_width) > 60:
                 is_close = True
 
-            k_p = 0.01
+            k_p = 0.012
 
             msg = Twist()
 
             if is_alligned == False:
 
-                msg.linear.x = 0
-                msg.linear.y = 0
-                msg.linear.z = 0
-                msg.angular.x = 0
-                msg.angular.y = 0
+                msg.linear.x = 0.0
+                msg.linear.y = 0.0
+                msg.linear.z = 0.0
+                msg.angular.x = 0.0
+                msg.angular.y = 0.0
                 msg.angular.z = k_p * error_x
 
                 self.publisher_vel.publish(msg)
@@ -232,11 +244,11 @@ class AssignmentNode(Node):
 
             elif is_alligned == True and is_close == False:
 
-                msg.linear.x = 0.2
-                msg.linear.y = 0
-                msg.linear.z = 0
-                msg.angular.x = 0
-                msg.angular.y = 0
+                msg.linear.x = 0.5
+                msg.linear.y = 0.0
+                msg.linear.z = 0.0
+                msg.angular.x = 0.0
+                msg.angular.y = 0.0
                 msg.angular.z = k_p * error_x
 
                 self.publisher_vel.publish(msg)
@@ -249,7 +261,7 @@ class AssignmentNode(Node):
 
                 # Disegna cerchio sul marker
                 marker_center = (int(marker_center_x), int(marker_center_y))
-                cv2.circle(self.latest_image, marker_center, 20, (0, 255, 0), 3)
+                cv2.circle(self.latest_image, marker_center, 50, (0, 255, 0), 3)
 
                 # Pubblica immagine processata
                 try:
@@ -299,10 +311,10 @@ class AssignmentNode(Node):
         if abs(yaw_error) > YAW_TOLERANCE:
             # Se non stiamo guardando l'origine, ruotiamo sul posto
             msg.linear.x = 0.0
-            msg.angular.z = 0.5 * yaw_error # Controllo P sull'angolo
+            msg.angular.z = 0.7 * yaw_error # Controllo P sull'angolo
         else:
             # Se stiamo guardando l'origine, andiamo dritti
-            msg.linear.x = 0.5 # Velocità costante o proporzionale alla distanza
+            msg.linear.x = 0.7 # Velocità costante o proporzionale alla distanza
             msg.angular.z = 0.0 # (Opzionale: puoi lasciare un piccolo correttivo angolare)
         
         self.publisher_vel.publish(msg)

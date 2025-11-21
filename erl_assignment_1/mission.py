@@ -100,8 +100,6 @@ class AssignmentNode(Node):
         # Third state: return to origin
         elif self.mission_phase == "DONE":
             self.get_logger().info("Missione completata! Tutti i marker visitati.", throttle_duration_sec=5)
-            # terminate the ros node
-            rclpy.shutdown()
             
         # Stop state
         else:
@@ -210,6 +208,7 @@ class AssignmentNode(Node):
             image_center_x = self.latest_image.shape[1] / 2
 
             error_x = image_center_x - marker_center_x
+            self.get_logger().info(f"error_x: {error_x}.")
 
             # computing marker_perceived_width as difference between corner 0 (high left corner) and corner 1 (high right corner) then doing norm
             marker_perceived_width = np.linalg.norm(target_corners[0] - target_corners[1])
@@ -218,14 +217,15 @@ class AssignmentNode(Node):
             is_alligned = False
             is_close = False
 
-            if abs(error_x) < 0.03:
+            # error_x is computed as an average in pixels so it will have values multiples of 0.25
+            if abs(error_x) < 3:
                 is_alligned = True
 
             # marker_perceived_width is in pixels, so we set a threshold in pixels too
             if abs(marker_perceived_width) > 60:
                 is_close = True
 
-            k_p = 0.012
+            k_p = 0.01
 
             msg = Twist()
 
@@ -294,7 +294,7 @@ class AssignmentNode(Node):
         msg = Twist()
         
         # SOGLIE
-        DIST_TOLERANCE = 0.1  # metri (es. 10 cm)
+        DIST_TOLERANCE = 0.04  # metri (es. 4 cm)
         YAW_TOLERANCE = 0.05  # radianti (~3 gradi)
 
         if dist_error < DIST_TOLERANCE:

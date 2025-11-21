@@ -9,9 +9,9 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    pkg_assign1 = get_package_share_directory('assign1')
+    pkg_erl_assignment_1 = get_package_share_directory('erl_assignment_1')
 
-    gazebo_models_path, ignore_last_dir = os.path.split(pkg_assign1)
+    gazebo_models_path, ignore_last_dir = os.path.split(pkg_erl_assignment_1)
     os.environ["GZ_SIM_RESOURCE_PATH"] += os.pathsep + gazebo_models_path
 
     rviz_launch_arg = DeclareLaunchArgument(
@@ -25,7 +25,7 @@ def generate_launch_description():
     )
 
     world_arg = DeclareLaunchArgument(
-        'world', default_value='assign1_world.sdf',
+        'world', default_value='erl_assignment_1_world.sdf',
         description='Name of the Gazebo world file to load'
     )
 
@@ -56,14 +56,14 @@ def generate_launch_description():
 
     # Define the path to your URDF or Xacro file
     urdf_file_path = PathJoinSubstitution([
-        pkg_assign1,  # Replace with your package name
+        pkg_erl_assignment_1,  # Replace with your package name
         "urdf",
         LaunchConfiguration('model')  # Replace with your URDF or Xacro file
     ])
 
     world_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_assign1, 'launch', 'my_launch.py'),
+            os.path.join(pkg_erl_assignment_1, 'launch', 'my_launch.py'),
         ),
         launch_arguments={
         'world': LaunchConfiguration('world'),
@@ -74,7 +74,7 @@ def generate_launch_description():
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
-        arguments=['-d', PathJoinSubstitution([pkg_assign1, 'rviz', LaunchConfiguration('rviz_config')])],
+        arguments=['-d', PathJoinSubstitution([pkg_erl_assignment_1, 'rviz', LaunchConfiguration('rviz_config')])],
         condition=IfCondition(LaunchConfiguration('rviz')),
         parameters=[
             {'use_sim_time': LaunchConfiguration('use_sim_time')},
@@ -154,7 +154,7 @@ def generate_launch_description():
         name='ekf_filter_node',
         output='screen',
         parameters=[
-            os.path.join(pkg_assign1, 'config', 'ekf.yaml'),
+            os.path.join(pkg_erl_assignment_1, 'config', 'ekf.yaml'),
             {'use_sim_time': LaunchConfiguration('use_sim_time')},
             ]
 )

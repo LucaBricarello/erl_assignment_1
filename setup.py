@@ -14,7 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
 
         # Installa i file di launch
-        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         
         # Installa i file URDF e XACRO
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*')),
@@ -41,6 +41,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'mission_node = erl_assignment_1.mission:main',
         ],
     },
 )

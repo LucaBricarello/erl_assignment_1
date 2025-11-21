@@ -9,6 +9,8 @@
     <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
     <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
     <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'/>
+    <plugin name='gz::sim::systems::Imu' filename='gz-sim-imu-system'/>
     <gravity>0 0 -9.8000000000000007</gravity>
     <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
@@ -74,7 +76,7 @@
     <include>
       <uri>file:///home/ubuntu/gazebo_models/aruco_box</uri>
       <name>aruco_box_0</name>
-      <pose>0.6180000000000001 1.9019999999999999 0.25 0 0 1.2565999999999997</pose>
+      <pose>0.61999999999999988 1.8999999999999997 0.25 0 0 -1.8800000000000008</pose>
     </include>
     <include>
       <uri>file:///home/ubuntu/gazebo_models/aruco_box</uri>
@@ -89,7 +91,7 @@
     <include>
       <uri>file:///home/ubuntu/gazebo_models/aruco_box</uri>
       <name>aruco_box_3</name>
-      <pose>0.6180000000000001 -1.9019999999999997 0.25 2.6322046182731614e-11 1.5707900000278763 1.8850000000145211</pose>
+      <pose>0.6180000000000001 -1.9019999999999997 0.25 5.264394635001594e-11 1.5707900000103283 1.8850000000429519</pose>
     </include>
     <light name='sun' type='directional'>
       <pose>0 0 10 0 0 0</pose>

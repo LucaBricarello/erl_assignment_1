@@ -1,9 +1,12 @@
 video short mission with 4 wheel skid steer robot
 
-[![Guarda il video](https://img.youtube.com/vi/l1Aq8shQOpQ/maxresdefault.jpg)](https://youtu.be/l1Aq8shQOpQ)
-https://youtu.be/l1Aq8shQOpQ
+https://github.com/user-attachments/assets/44646f7d-8eec-4331-99ba-498bf0d11d79
 
 Video long mission with 2 wheel robot
 
-[![Guarda il video](https://img.youtube.com/vi/yBNdEHdSdh8/maxresdefault.jpg)](https://youtu.be/yBNdEHdSdh8)
-https://youtu.be/yBNdEHdSdh8
+https://github.com/user-attachments/assets/c897d308-0eae-44c4-89da-0f537b42cb5d
+
+
+
+
+

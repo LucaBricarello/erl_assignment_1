@@ -42,6 +42,7 @@ setup(
     entry_points={
         'console_scripts': [
             'mission_node = erl_assignment_1.mission:main',
+            'mission_node_short = erl_assignment_1.mission_short:main',
         ],
     },
 )

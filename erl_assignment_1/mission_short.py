@@ -218,7 +218,8 @@ class AssignmentNode(Node):
                 is_alligned = True
 
             # marker_perceived_width is in pixels, so we set a threshold in pixels too
-            if abs(marker_perceived_width) > 50:
+            # 1 pixel since we are in the short mission, so we want the robot to not move
+            if abs(marker_perceived_width) > 1:
                 is_close = True
 
             k_p = 0.01
@@ -257,7 +258,7 @@ class AssignmentNode(Node):
 
                 # draw circle around the marker in the image
                 marker_center = (int(marker_center_x), int(marker_center_y))
-                cv2.circle(self.latest_image, marker_center, 45, (0, 255, 0), 3)
+                cv2.circle(self.latest_image, marker_center, 20, (0, 255, 0), 3)
 
                 # Publish processed image
                 try:

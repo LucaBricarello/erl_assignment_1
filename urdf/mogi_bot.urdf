@@ -230,6 +230,8 @@
   <link name="navsat_link"/>
 
   <joint type="fixed" name="scan_joint">
+    <origin xyz="0 0 0.12" rpy="0 0 0"/> 
+    
     <parent link="base_link"/>
     <child link="scan_link"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>

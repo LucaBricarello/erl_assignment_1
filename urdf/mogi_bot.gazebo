@@ -103,13 +103,13 @@
           </horizontal>
 
           <!-- Dirty hack for fake lidar detections with OGRE1 rendering in VM -->
-          
+          <!--
           <vertical>
             <samples>32</samples>
             <min_angle>-0.5353</min_angle>
             <max_angle>0.1862</max_angle>
           </vertical>
-          
+          -->
         </scan>
 
         <range>

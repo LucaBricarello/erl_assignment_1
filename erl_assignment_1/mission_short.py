@@ -2,7 +2,7 @@
 
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from geometry_msgs.msg import Twist
 from cv_bridge import CvBridge
 import cv2
@@ -18,13 +18,13 @@ class AssignmentNode(Node):
         super().__init__('assignment_node')
 
         # Topics
-        self.camera_topic = '/camera/image'
+        self.camera_topic = '/camera/image/compressed'
         self.cmd_vel_topic = '/cmd_vel'
         self.output_image_topic = '/robot/processed_image'
 
         # Image subscriber
         self.subscription = self.create_subscription(
-            Image,
+            CompressedImage,
             self.camera_topic,
             self.image_callback,
             10)
@@ -60,7 +60,7 @@ class AssignmentNode(Node):
         It ONLY converts the image and saves it in self.latest_image.
         """
         try:
-            self.latest_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+            self.latest_image = self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
         except Exception as e:
             self.get_logger().error(f'Error converting image: {e}')
 

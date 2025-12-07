@@ -267,6 +267,8 @@ class AssignmentNode(Node):
                 except Exception as e:
                     self.get_logger().error(f'Error publishing processed image: {e}')
 
+                cv2.namedWindow("Marker Found", cv2.WINDOW_NORMAL)
+                cv2.resizeWindow("Marker Found", 600, 600)
                 self.get_logger().info("Opening window to show marker found...", throttle_duration_sec=5)
                 cv2.imshow("Marker Found", self.latest_image)
                 cv2.waitKey(3000)

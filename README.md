@@ -12,7 +12,7 @@ This ROS 2 package contains the simulation and control nodes for an autonomous r
 Ensure the following are installed and configured before running the simulation:
  - **ROS2 distro**: Jazzy
  - **Gazebo**
- - **Gazebo Models**: the `aruco_marker` model must be installed in your Gazebo model path
+ - **Gazebo Models**: the `aruco_marker` model must be installed in your Gazebo model path. To get the model you can clone this [repository](https://github.com/LucaBricarello/aruco_box.git).
  - **cv_bridge**
  - **OpenCV (with ArUco module enabled)**: required for ArUco marker detection (`cv2.aruco`)
  - **tf-transformations**: used to convert orientation data from quaternions to Euler angles.

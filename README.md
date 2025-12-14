@@ -51,8 +51,7 @@ https://github.com/user-attachments/assets/c897d308-0eae-44c4-89da-0f537b42cb5d
 
 Video of test done on the real robot in lab
 
-<video src="media/real_robot_test.mp4" controls="controls" style="max-width: 100%;">
-</video>
+https://github.com/user-attachments/assets/00b47534-8c44-469d-9178-79713b2685a8
 
 # Small description of the Package
 The package has a lot of components this is a brief overview of the main ones.

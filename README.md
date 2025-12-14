@@ -60,12 +60,15 @@ The simulation uses compressed images. To visualize the processed output or the 
 Below you can find demonstrations of the missions running both in the simulator and on a real robot (Husarion ROSbot 2).
 
 **Short mission with 4 wheel skid steer robot**:
+
 https://github.com/user-attachments/assets/44646f7d-8eec-4331-99ba-498bf0d11d79
 
 **Long mission with 2-wheel robot**:
+
 https://github.com/user-attachments/assets/c897d308-0eae-44c4-89da-0f537b42cb5d
 
 **Test on a ROSBOT2 in the lab**:
+
 https://github.com/user-attachments/assets/00b47534-8c44-469d-9178-79713b2685a8
 
 ## Package Overview

@@ -1,3 +1,11 @@
+# Authors
+
+- Luca Bricarello 5248168
+- Barbara Ratto 4952202
+- Francesca Magno 5294873
+- Martino Arecco 5273621
+- Filippo Gorini 4828475
+
 # Requirements
 
  - ROS2 jazzy
@@ -40,6 +48,11 @@ https://github.com/user-attachments/assets/44646f7d-8eec-4331-99ba-498bf0d11d79
 Video of the long mission with 2 wheel robot
 
 https://github.com/user-attachments/assets/c897d308-0eae-44c4-89da-0f537b42cb5d
+
+Video of test done on the real robot in lab
+
+<video src="https://github.com/LucaBricarello/erl_assignment_1/media/real_robot_test.mp4" controls="controls" style="max-width: 100%;">
+</video>
 
 # Small description of the Package
 The package has a lot of components this is a brief overview of the main ones.

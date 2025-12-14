@@ -51,7 +51,7 @@ https://github.com/user-attachments/assets/c897d308-0eae-44c4-89da-0f537b42cb5d
 
 Video of test done on the real robot in lab
 
-<video src="https://github.com/LucaBricarello/erl_assignment_1/media/real_robot_test.mp4" controls="controls" style="max-width: 100%;">
+<video src="https://github.com/LucaBricarello/erl_assignment_1/raw/main/media/real_robot_test.mp4" controls="controls" style="max-width: 100%;">
 </video>
 
 # Small description of the Package
